@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw Digit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+        .button-container {
+            margin-top: 10px;
+        }
+        .button-container button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Draw a Digits</h1>
+        <canvas id="canvas" width="625" height="280"></canvas>
+        <br>
+        <button onclick="clearCanvas()">Clear</button>
+        <button onclick="submitCanvas()">Submit</button>
+        <form id="canvasForm" action="/draw" method="post">
+            <input type="hidden" id="canvasData" name="canvasData">
+        </form>
+        <script>
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
+            let drawing = false;
+
+            // Set the canvas background to white
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mousemove', draw);
+
+            function startDrawing(event) {
+                drawing = true;
+                draw(event);  // Ensure drawing starts even with a click
+            }
+
+            function stopDrawing() {
+                drawing = false;
+                ctx.beginPath();  // Reset the path to avoid connecting lines
+            }
+
+            function draw(event) {
+                if (!drawing) return;
+
+                ctx.lineWidth = 10;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = 'black';
+
+                ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            }
+
+            function clearCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+            }
+
+            function submitCanvas() {
+                let dataURL = canvas.toDataURL('image/png');
+                document.getElementById('canvasData').value = dataURL;
+                document.getElementById('canvasForm').submit();
+            }
+        </script>
+    </div>
+</body>
+</html>

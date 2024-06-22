@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Style for the image preview */
+        #imagePreview {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload an Image for Digits Prediction</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="fileInput" accept="image/*">
+            <input type="submit" value="Upload">
+        </form>
+        <h2>Image Preview:</h2>
+        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto;">
+        <script>
+            document.getElementById('fileInput').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imagePreview = document.getElementById('imagePreview');
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

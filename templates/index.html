@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digit Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body.index-body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body.index-body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{{ url_for('static', filename='images/Title.png') }}') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+            z-index: -1;
+        }
+
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .overlay h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .overlay .button-container {
+            margin-top: 20px;
+        }
+
+        .overlay button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="index-body">
+    <div class="overlay">
+        <h1>Digits Recognition</h1>
+        <div class="button-container">
+            <button onclick="location.href='{{ url_for('upload_file') }}'">Upload an Image</button>
+            <button onclick="location.href='{{ url_for('draw') }}'">Draw an Image</button>
+        </div>
+    </div>
+</body>
+</html>
