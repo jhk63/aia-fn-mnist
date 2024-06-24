@@ -5,6 +5,8 @@
 
 Digits Recognition
 
+다자리 숫자 인식기
+
 ## Setting
 
 PyTorch: https://pytorch.org/get-started/locally/  
@@ -29,3 +31,6 @@ pip install opencv-python
 ### Result
 
 ![image](https://github.com/jhk63/aia-fn-mnist/assets/163096026/0a742327-ddb8-4686-ae79-c3b174181350)
+
+![image](https://github.com/jhk63/aia-fn-mnist/assets/163096026/1d5a2063-3abc-42a4-a181-7645161ab918)
+
